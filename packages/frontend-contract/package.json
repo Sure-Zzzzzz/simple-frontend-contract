@@ -1,0 +1,48 @@
+{
+  "name": "@sure-zzzzzz/simple-frontend-contract",
+  "version": "1.0.0",
+  "description": "Versioned, framework-neutral contracts for frontend applications and host runtimes.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "node ../../scripts/build-package.mjs packages/frontend-contract",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --max-warnings=0",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "check": "npm run type-check && npm run lint && npm run test:coverage && npm run build",
+    "release:verify": "node ../../scripts/release-verify.mjs packages/frontend-contract",
+    "release": "node ../../scripts/release.mjs packages/frontend-contract"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.17.0",
+    "@types/node": "22.10.5",
+    "eslint": "9.17.0",
+    "globals": "15.14.0",
+    "typescript-eslint": "8.18.0",
+    "@vitest/coverage-v8": "2.1.8",
+    "typescript": "5.7.3",
+    "vitest": "2.1.8"
+  }
+}

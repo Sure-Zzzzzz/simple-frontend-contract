@@ -1,0 +1,20 @@
+{
+  "name": "simple-frontend-contract-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "pnpm@9.15.4",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint scripts --max-warnings=0",
+    "check": "npm run lint && corepack pnpm -r check && npm run template:check && npm run package:check",
+    "template:check": "node scripts/verify-template.mjs",
+    "package:check": "node scripts/verify-package.mjs packages/frontend-contract"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.17.0",
+    "eslint": "9.17.0",
+    "globals": "15.14.0",
+    "typescript": "5.7.3",
+    "typescript-eslint": "8.18.0"
+  }
+}
