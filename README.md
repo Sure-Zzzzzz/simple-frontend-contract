@@ -39,8 +39,6 @@ pnpm install
 pnpm check
 ```
 
-本机发布步骤见被忽略的 `LOCAL_TEST_COMMANDS.md`；其中不得保存 npm 凭据或其他密钥。
-
 ## 许可证
 
 [Apache License 2.0](LICENSE)。
