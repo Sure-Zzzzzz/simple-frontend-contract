@@ -1,12 +1,26 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 import {
   failure,
   isRuntimeConfiguration,
   isVersionedEvent,
-  success
+  success,
+  type RuntimeRequest
 } from './index.js';
 
 describe('通用前端契约', () => {
+  it('公开请求类型兼容旧调用并允许只读请求头', () => {
+    type RequestInput = Parameters<RuntimeRequest['request']>[0];
+    expectTypeOf<RequestInput['headers']>().toEqualTypeOf<Readonly<Record<string, string>> | undefined>();
+    expectTypeOf({ method: 'GET', path: '/resources' }).toMatchTypeOf<RequestInput>();
+    expectTypeOf({
+      method: 'PUT',
+      path: '/resources/item-1',
+      body: { name: 'resource' },
+      headers: { 'If-Match': '"7"' },
+      signal: new AbortController().signal
+    }).toMatchTypeOf<RequestInput>();
+  });
+
   it('创建可判别的成功和失败结果', () => {
     const result = success({ id: 'item-1' });
     const error = failure({ code: 'INVALID_INPUT', message: '输入无效', details: { field: 'name' } });

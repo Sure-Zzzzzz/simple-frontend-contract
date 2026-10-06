@@ -25,8 +25,10 @@ try {
     filter: source => !['node_modules', 'dist', 'coverage', 'playwright-report', 'test-results'].includes(source.split(/[\\/]/).at(-1))
   });
   run(['install', '--ignore-workspace', '--frozen-lockfile']);
-  // 浏览器运行时也置于隔离目录，避免质量门依赖开发机已有的 Playwright 缓存。
-  run(['exec', 'playwright', 'install', 'chromium']);
+  // 显式指定已安装浏览器时直接使用该通道；默认仍隔离安装 Chromium，保证持续集成可复现。
+  if (!process.env.PLAYWRIGHT_CHANNEL) {
+    run(['exec', 'playwright', 'install', 'chromium']);
+  }
   run(['check']);
 } finally {
   await rm(target, { recursive: true, force: true });

@@ -14,6 +14,8 @@ function run(command, args, options = {}) {
   const output = execFileSync(command, args, {
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    // 制品消费使用独立缓存，避免开发机共享缓存状态影响干净消费者验证。
+    env: { ...process.env, npm_config_cache: join(tempDirectory, 'npm-cache') },
     ...options
   });
   return typeof output === 'string' ? output.trim() : '';
@@ -148,6 +150,7 @@ try {
   run(process.execPath, [
     resolve(root, 'node_modules/typescript/bin/tsc'),
     '--noEmit',
+    '--strict',
     '--module', 'NodeNext',
     '--moduleResolution', 'NodeNext',
     '--target', 'ES2022',

@@ -37,6 +37,8 @@ export interface RuntimeRequest {
     method: string;
     path: string;
     body?: unknown;
+    /** 可选的调用方请求头；是否允许及如何合并由宿主决定，不覆盖宿主安全策略。 */
+    headers?: Readonly<Record<string, string>>;
     signal?: AbortSignal;
   }): Promise<TResponse>;
 }

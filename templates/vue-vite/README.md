@@ -11,3 +11,5 @@ pnpm dev
 ```
 
 `src/main.ts` 不参与 jsdom 覆盖率统计，因为浏览器质量门通过 production build 和 preview 实际启动它；其他生产源码仍由覆盖率统计。浏览器测试失败时产生的 trace 和截图仅用于本地诊断，不得提交或打入制品。
+
+默认质量门使用 Playwright Chromium。开发机已有 Chrome 或 Edge 时，可在当前测试进程设置 `PLAYWRIGHT_CHANNEL=chrome` 或 `PLAYWRIGHT_CHANNEL=msedge`，再执行完整 `pnpm check`；仓库的模板验证也会使用该已安装浏览器而不额外下载。该选择不跳过任何浏览器用例；指定浏览器不可用时测试会失败。

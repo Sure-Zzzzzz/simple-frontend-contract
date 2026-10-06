@@ -1,6 +1,6 @@
 {
   "name": "@sure-zzzzzz/simple-frontend-contract",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Versioned, framework-neutral contracts for frontend applications and host runtimes.",
   "license": "Apache-2.0",
   "type": "module",
